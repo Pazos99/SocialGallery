@@ -7,21 +7,15 @@
 <body>
 	<h1>Subida de la imagen</h1>	
 	<?php
+	session_start();
 	$nom = $_REQUEST['nom']; //Obtenim el nom introduït
-	//echo "Hey " .$_REQUEST['nom']."<br>"; //Mostrem una salutació
-	//echo "Configurado? " .isset($_POST['nom'])."<br>";
-
-	//echo "Nombre del archivo: " .$_FILES["imagen"]["name"]."<br>"; //El nombre original del fichero en la máquina del cliente.
-	//echo "Tipo del archivo: " .$_FILES["imagen"]["type"]."<br>";
-	//echo "Tamaño del archivo: " .$_FILES["imagen"]["size"]."<br>";
-	//echo "Archivo temporal: " .$_FILES["imagen"]["tmp_name"]."<br>"; //El nombre temporal del fichero en el cual se almacena el fichero subido en el servidor.
-	
-	//https://www.php.net/manual/es/features.file-upload.post-method.php
-
 	$ruta_fichero_origen = ($_FILES["imagen"]["tmp_name"]);
 	$nombrefoto=$_REQUEST['nom'];
 	$nombrearchivo=$_FILES["imagen"]["name"];
 	$extensiones = array(0=>'image/jpg',1=>'image/jpeg',2=>'image/png');
+	$id=$_SESSION['nombre'];
+
+	$idConsulta="SELECT tbl_usuarios.id_usuarios FROM tbl_usuarios, tbl_imagenes WHERE tbl_usuarios.id_usuarios LIKE tbl_imagenes.id_usuarios AND tbl_usuarios.nombre_usuario='$id' ORDER BY tbl_imagenes.fecha_Img DESC";
 
 	include "conecta.php";
 	$ruta_indexphp = dirname(realpath(__FILE__));
@@ -31,7 +25,10 @@
 	     
 		if( move_uploaded_file ( $ruta_fichero_origen, $ruta_nuevo_destino ) ) {
            echo 'Fichero guardado con éxito'."<br>";
-           mysqli_query($conn, "INSERT INTO tbl_imagenes (nombre_Img,titulo_Img,fecha_Img) VALUES ('$nombrefoto','$nombrearchivo',CURDATE())");
+           $qry_res=mysqli_query($conn,$idConsulta);
+			$reg=mysqli_fetch_array($qry_res);
+				$user=$reg['id_usuarios'];
+           mysqli_query($conn, "INSERT INTO tbl_imagenes (nombre_Img,titulo_Img,fecha_Img,id_usuarios) VALUES ('$nombrefoto','$nombrearchivo',CURDATE(),'$user')");
 
 		   echo "<img src='Imagenes/".$nombrearchivo."'>";
 

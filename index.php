@@ -2,13 +2,27 @@
 <html>
 <head>
 	<title>login</title>
+	<script type="text/javascript" src="services/validaciones.js"></script>
+	<style type="text/css">
+		.mensaje {
+			display: none;
+		}
+
+	</style>
 </head>
 <body>
 	<h1>Login</h1>
-	<form method="post" action="./services/login.proc.php">
-		<input type="text" name="user" placeholder="Inserta el usuario..." required><br/>
-		<input type="password" name="password" placeholder="Inserta el password" required><br/><br/>
-		<input type="submit" name="Enviar">
+	<form action="services/login.proc.php" method="POST" name="formulario" enctype="multipart/form-data" onsubmit="return validacionLogin()">
+		<p id="mensaje" class="mensaje"></p>
+		<br>
+		<!--Campo Nombre-->
+		<input type="text" placeholder="Nom..." name="user" id="user">
+		<br>
+		<!--Campo Email-->		
+		<input type="password" placeholder="Password..." name="password" id="password">
+		<br>
+		<!--Boton enviar-->		
+		<input type="submit" class="btn btn-primary" value="Enviar" >
 	</form>
 
 </body>
