@@ -26,7 +26,7 @@
 		if( move_uploaded_file ( $ruta_fichero_origen, $ruta_nuevo_destino ) ) {
            echo 'Fichero guardado con éxito'."<br>";
            $qry_res=mysqli_query($conn,$idConsulta);
-$reg=mysqli_fetch_array($qry_res);
+			$reg=mysqli_fetch_array($qry_res);
 				$user=$reg['id_usuarios'];
            mysqli_query($conn, "INSERT INTO tbl_imagenes (nombre_Img,titulo_Img,fecha_Img,id_usuarios) VALUES ('$nombrefoto','$nombrearchivo',CURDATE(),'$user')");
 

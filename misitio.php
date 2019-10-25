@@ -29,7 +29,7 @@
 	height: 1000px;
 	z-index: 5;
 	left: 0px;
-	top: 200px;
+	top: 250px;
 }
 
 #pack {
@@ -78,9 +78,13 @@ label {
 	font-family: mv boli;
 }
 
+.mensaje{
+	display: none;
+}
+
 </style>
 
-
+	<script type="text/javascript" src="services/validaciones.js"></script>
 </head>
 <body>
 	<div style="text-align: right;">
@@ -95,25 +99,22 @@ label {
 <!-- ____________________________________________________________________________________________________________________________ -->
 
 <div id="filtro">
-	
 
-
-
-<form action="processa.php" method="POST" name="formulario" enctype="multipart/form-data">
+<form action="processa.php" method="POST" name="formulario" enctype="multipart/form-data" onsubmit="return validacionSubida()">
 	<h1 style="font-family: mv boli">Formulario</h1>
+		<p id="mensaje" class="mensaje"></p>
 		<br>
 		<!--Campo Nombre-->
-	<LABEL>Nombre</LABEL>
-		<input type="text" placeholder="Nom..." name="nom" required="">
+		<LABEL>Nombre</LABEL>
+		<input type="text" placeholder="Nom..." name="user" id="nom">
 		<br>
-		<!--Campo Archivo-->	
-		<LABEL>Subir archivo</LABEL>	
-		<input type="file" id="imagen" name="imagen" lang="es">	
+		<!--Campo Archivo-->
+		<LABEL>Subir archivo</LABEL>
+		<input type="file" placeholder="imagen..." name="imagen" id="imagen">
 		<br>
 		<!--Boton enviar-->		
 		<input type="submit" class="btn btn-primary" value="Enviar" >
 	</form>
-
 
 </div>
 
